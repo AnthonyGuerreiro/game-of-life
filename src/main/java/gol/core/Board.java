@@ -63,6 +63,10 @@ public class Board {
     }
 
     public void spawnRandom() {
+        if (cellsAlive == height * width) {
+            return;
+        }
+        
         int i = getRandomRow();
         int j = getRandomColumn();
         if (!cells[i][j]) {
