@@ -32,7 +32,7 @@ public class ConsoleDisplay implements Display {
     }
 
     private char getChar(Board board, int i, int j) {
-        boolean alive = board.getCell(i, j);
+        boolean alive = board.isAlive(i, j);
         return alive ? '*' : ' ';
     }
 

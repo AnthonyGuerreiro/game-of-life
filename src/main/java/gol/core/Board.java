@@ -50,7 +50,7 @@ public class Board {
         }
     }
 
-    public boolean getCell(int i, int j) {
+    public boolean isAlive(int i, int j) {
         return cells[i][j];
     }
 
@@ -66,7 +66,7 @@ public class Board {
         if (cellsAlive == height * width) {
             return;
         }
-        
+
         int i = getRandomRow();
         int j = getRandomColumn();
         if (!cells[i][j]) {

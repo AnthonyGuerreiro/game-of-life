@@ -89,28 +89,28 @@ public class GameOfLife {
         boolean left = isLeft(j);
         boolean right = isRight(j);
 
-        if (!bottom && !left && board.getCell(i - 1, j - 1)) {
+        if (!bottom && !left && board.isAlive(i - 1, j - 1)) {
             neighborsCount++;
         }
-        if (!bottom && board.getCell(i - 1, j)) {
+        if (!bottom && board.isAlive(i - 1, j)) {
             neighborsCount++;
         }
-        if (!bottom && !right && board.getCell(i - 1, j + 1)) {
+        if (!bottom && !right && board.isAlive(i - 1, j + 1)) {
             neighborsCount++;
         }
-        if (!left && board.getCell(i, j - 1)) {
+        if (!left && board.isAlive(i, j - 1)) {
             neighborsCount++;
         }
-        if (!right && board.getCell(i, j + 1)) {
+        if (!right && board.isAlive(i, j + 1)) {
             neighborsCount++;
         }
-        if (!top && !left && board.getCell(i + 1, j - 1)) {
+        if (!top && !left && board.isAlive(i + 1, j - 1)) {
             neighborsCount++;
         }
-        if (!top && board.getCell(i + 1, j)) {
+        if (!top && board.isAlive(i + 1, j)) {
             neighborsCount++;
         }
-        if (!top && !right && board.getCell(i + 1, j + 1)) {
+        if (!top && !right && board.isAlive(i + 1, j + 1)) {
             neighborsCount++;
         }
         return neighborsCount;
@@ -152,7 +152,7 @@ public class GameOfLife {
     }
 
     public boolean isAlive(int i, int j) {
-        return board.getCell(i, j);
+        return board.isAlive(i, j);
     }
 
     public int getCellsAlive() {
