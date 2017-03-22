@@ -44,7 +44,7 @@ public class GameOfLife {
         if (display == null) {
             display = new NoDisplay();
         }
-        
+
         while (!board.isDone()) {
             step();
             display.clearScreen();
@@ -69,7 +69,9 @@ public class GameOfLife {
             }
         }
 
-        spawnRandomCells();
+        if (!board.isDone()) {
+            spawnRandomCells();
+        }
     }
 
     private void commit() {
