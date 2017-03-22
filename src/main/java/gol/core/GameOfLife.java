@@ -1,6 +1,7 @@
 package gol.core;
 
 import gol.display.Display;
+import gol.display.NoDisplay;
 
 public class GameOfLife {
 
@@ -38,24 +39,20 @@ public class GameOfLife {
         this.nextBoard = new Board(this.board);
     }
 
-    public void play() throws InterruptedException {
-        play(null);
-    }
-
     public void play(Display display) throws InterruptedException {
         int iterations = 0;
+        if (display == null) {
+            display = new NoDisplay();
+        }
+        
         while (!board.isDone()) {
             step();
-            if (display != null) {
-                display.clearScreen();
-                display.display(board);
-                iterations++;
-            }
+            display.clearScreen();
+            display.display(board);
+            iterations++;
             Thread.sleep((int) (interval * 1000L));
         }
-        if (display != null) {
-            display.displayStats(iterations);
-        }
+        display.displayStats(iterations);
     }
 
 
