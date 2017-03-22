@@ -76,7 +76,7 @@ public class Board {
         }
     }
 
-    public boolean isDone() {
+    public boolean isFinished() {
         return cellsAlive == 0;
     }
 
