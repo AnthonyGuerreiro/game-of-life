@@ -154,4 +154,8 @@ public class GameOfLife {
     public boolean isAlive(int i, int j) {
         return board.getCell(i, j);
     }
+
+    public int getCellsAlive() {
+        return board.getCellsAlive();
+    }
 }

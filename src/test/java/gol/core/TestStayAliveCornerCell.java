@@ -2,6 +2,8 @@ package gol.core;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class TestStayAliveCornerCell extends AbstractTest {
 
     private final static int HEIGHT = 3;
@@ -14,6 +16,7 @@ public class TestStayAliveCornerCell extends AbstractTest {
     @Test
     @SuppressWarnings("Duplicates")
     public void testOverPopulatedCenterCell() {
+        assertEquals(3, gameOfLife.getCellsAlive());
         gameOfLife.step();
 
         assertAlive(0, 0);
@@ -27,6 +30,8 @@ public class TestStayAliveCornerCell extends AbstractTest {
         assertDead(2, 0);
         assertDead(2, 1);
         assertDead(2, 2);
+
+        assertEquals(4, gameOfLife.getCellsAlive());
     }
 
     @Override

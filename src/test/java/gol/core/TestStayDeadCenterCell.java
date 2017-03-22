@@ -2,6 +2,8 @@ package gol.core;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class TestStayDeadCenterCell extends AbstractTest {
 
     private final static int HEIGHT = 3;
@@ -13,6 +15,7 @@ public class TestStayDeadCenterCell extends AbstractTest {
 
     @Test
     public void testOverPopulatedCenterCell() {
+        assertEquals(2, gameOfLife.getCellsAlive());
         gameOfLife.step();
 
         for (int i = 0; i < HEIGHT; i++) {
@@ -20,6 +23,8 @@ public class TestStayDeadCenterCell extends AbstractTest {
                 assertDead(i, j);
             }
         }
+
+        assertEquals(0, gameOfLife.getCellsAlive());
     }
 
     @Override

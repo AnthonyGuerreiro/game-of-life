@@ -26,6 +26,14 @@ public class Board {
         }
     }
 
+    public void spawn(int i, int j) {
+        boolean alive = cells[i][j];
+        if (!alive) {
+            cells[i][j] = true;
+            cellsAlive++;
+        }
+    }
+
     public Board(int height, int width, double aliveProbability) {
         if (height < 1 || width < 1 || aliveProbability < 0 || aliveProbability > 1) {
             throw new IllegalArgumentException();
@@ -46,14 +54,12 @@ public class Board {
         return cells[i][j];
     }
 
-    public void spawn(int i, int j) {
-        cells[i][j] = true;
-        cellsAlive++;
-    }
-
     public void kill(int i, int j) {
-        cells[i][j] = false;
-        cellsAlive--;
+        boolean alive = cells[i][j];
+        if (alive) {
+            cells[i][j] = false;
+            cellsAlive--;
+        }
     }
 
     public void spawnRandom() {
@@ -66,16 +72,6 @@ public class Board {
         }
     }
 
-    private int getRandomRow() {
-        int row = (int) (Math.random() * height);
-        return row == height ? row - 1 : row;
-    }
-
-    private int getRandomColumn() {
-        int column = (int) (Math.random() * width);
-        return column == width ? column - 1 : column;
-    }
-
     public boolean isDone() {
         return cellsAlive == 0;
     }
@@ -86,5 +82,19 @@ public class Board {
 
     public int getWidth() {
         return width;
+    }
+
+    public int getCellsAlive() {
+        return cellsAlive;
+    }
+
+    private int getRandomRow() {
+        int row = (int) (Math.random() * height);
+        return row == height ? row - 1 : row;
+    }
+
+    private int getRandomColumn() {
+        int column = (int) (Math.random() * width);
+        return column == width ? column - 1 : column;
     }
 }

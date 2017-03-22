@@ -2,6 +2,8 @@ package gol.core;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class TestUnderPopulatedCornerCell extends AbstractTest {
 
     private final static int HEIGHT = 3;
@@ -13,6 +15,7 @@ public class TestUnderPopulatedCornerCell extends AbstractTest {
 
     @Test
     public void testUnderPopulatedCenterCell() {
+        assertEquals(2, gameOfLife.getCellsAlive());
         gameOfLife.step();
 
         for (int i = 0; i < HEIGHT; i++) {
@@ -20,11 +23,12 @@ public class TestUnderPopulatedCornerCell extends AbstractTest {
                 assertDead(i, j);
             }
         }
+        assertEquals(0, gameOfLife.getCellsAlive());
     }
 
     @Override
     public void initialize(Board board) {
-        board.spawn(0,0);
+        board.spawn(0, 0);
         board.spawn(0, 1);
     }
 }
