@@ -1,20 +1,21 @@
-package gol.core;
+package gol.core.simple;
 
+import gol.core.Board;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestUnderPopulatedCornerCell extends AbstractTest {
+public class TestStayDeadCornerCell extends AbstractSimpleTest {
 
     private final static int HEIGHT = 3;
     private final static int WIDTH = 3;
 
-    public TestUnderPopulatedCornerCell() {
+    public TestStayDeadCornerCell() {
         super(HEIGHT, WIDTH);
     }
 
     @Test
-    public void testUnderPopulatedCenterCell() {
+    public void testOverPopulatedCenterCell() throws InterruptedException {
         assertEquals(2, gameOfLife.getCellsAlive());
         gameOfLife.step();
 
@@ -23,12 +24,13 @@ public class TestUnderPopulatedCornerCell extends AbstractTest {
                 assertDead(i, j);
             }
         }
+
         assertEquals(0, gameOfLife.getCellsAlive());
     }
 
     @Override
     public void initialize(Board board) {
-        board.spawn(0, 0);
         board.spawn(0, 1);
+        board.spawn(1, 0);
     }
 }

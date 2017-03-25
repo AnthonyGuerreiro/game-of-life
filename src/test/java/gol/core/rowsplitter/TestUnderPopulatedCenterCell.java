@@ -1,10 +1,11 @@
-package gol.core;
+package gol.core.rowsplitter;
 
+import gol.core.Board;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestUnderPopulatedCenterCell extends AbstractTest {
+public class TestUnderPopulatedCenterCell extends AbstractRowSplitterTest {
 
     private final static int HEIGHT = 3;
     private final static int WIDTH = 3;
@@ -15,7 +16,7 @@ public class TestUnderPopulatedCenterCell extends AbstractTest {
 
 
     @Test
-    public void testUnderPopulatedCenterCell() {
+    public void testUnderPopulatedCenterCell() throws InterruptedException {
         assertEquals(2, gameOfLife.getCellsAlive());
         gameOfLife.step();
 

@@ -1,10 +1,11 @@
-package gol.core;
+package gol.core.simple;
 
+import gol.core.Board;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestBornCenterCell extends AbstractTest {
+public class TestBornCenterCell extends AbstractSimpleTest {
 
     private final static int HEIGHT = 3;
     private final static int WIDTH = 3;
@@ -14,7 +15,8 @@ public class TestBornCenterCell extends AbstractTest {
     }
 
     @Test
-    public void testOverPopulatedCenterCell() {
+    @SuppressWarnings("Duplicates")
+    public void testOverPopulatedCenterCell() throws InterruptedException {
         assertEquals(3, gameOfLife.getCellsAlive());
         gameOfLife.step();
 

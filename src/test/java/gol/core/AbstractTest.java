@@ -5,33 +5,25 @@ import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractTest {
 
-    protected final GameOfLifeImpl gameOfLife;
-    private final int height;
-    private final int width;
+    protected final GameOfLife gameOfLife;
 
     public AbstractTest(int height, int width) {
-        this.height = height;
-        this.width = width;
-        Board board = createBoard(height, width);
+        Board board = createBoard(height, width, 0f);
         initialize(board);
-        gameOfLife = createGameOfLife(board);
+        gameOfLife = createGameOfLife(board, 0, 0.5f);
     }
 
-    private Board createBoard(int height, int width) {
-        return new Board(height, width, 0f);
-    }
+    protected abstract Board createBoard(int height, int width, double aliveProbability);
 
     protected abstract void initialize(Board board);
 
-    private GameOfLifeImpl createGameOfLife(Board board) {
-        return new GameOfLifeImpl(board, 0, 0.5f);
-    }
+    protected abstract GameOfLife createGameOfLife(Board board, int randomCellsBornPerTurn, double interval);
 
-    public void assertAlive(int i, int j) {
+    protected void assertAlive(int i, int j) {
         assertTrue(gameOfLife.isAlive(i, j));
     }
 
-    public void assertDead(int i, int j) {
+    protected void assertDead(int i, int j) {
         assertFalse(gameOfLife.isAlive(i, j));
     }
 }

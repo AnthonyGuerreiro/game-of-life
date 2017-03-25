@@ -1,8 +1,14 @@
 package gol.app;
 
+import gol.config.Mode;
 import gol.core.GameOfLife;
-import gol.core.GameOfLifeImpl;
 import gol.display.ConsoleDisplay;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
 
 public class Main {
 
@@ -11,7 +17,7 @@ public class Main {
     public final static float ALIVE_PROBABILITY = 0.3f;
     public final static int RANDOM_CELLS_BORN_PER_TURN = 0;
     public final static float INTERVAL = 0.5f;
-
+    public final static int MODE = Mode.SIMPLE.getIndex();
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -26,12 +32,22 @@ public class Main {
         float aliveProbability = getFloat(2, args, ALIVE_PROBABILITY);
         int ramdomCellsBornPerTurn = getInt(3, args, RANDOM_CELLS_BORN_PER_TURN);
         float interval = getFloat(4, args, INTERVAL);
-        start(height, width, aliveProbability, ramdomCellsBornPerTurn, interval);
+        int mode = getInt(5, args, MODE);
+        if (mode >= Mode.values().length) {
+            mode = MODE;
+        }
+        start(height, width, aliveProbability, ramdomCellsBornPerTurn, interval, mode);
     }
 
     private static void showHelp() {
-        String msg = "Usage: ./java -jar <file> [height] [width] [aliveProbability] [randomCellsBornPerTurn] [interval]";
+        String msg = "Usage: ./java -jar <file> [height] [width] [aliveProbability] [randomCellsBornPerTurn] [interval] [mode]";
         System.out.println(msg);
+
+        System.out.println("Modes:");
+        List<Mode> modes = Arrays.stream(Mode.values())
+                                 .sorted(comparing(Mode::getIndex))
+                                 .collect(toList());
+        modes.forEach(Main::printMode);
     }
 
     private static int getInt(int index, String[] args, int defaultValue) {
@@ -57,9 +73,15 @@ public class Main {
     }
 
     private static void start(int height, int width, float aliveProbability, int randomCellsBornPerTurn,
-                              float interval) throws InterruptedException {
+                              float interval, int modeIndex) throws InterruptedException {
 
-        GameOfLife gol = new GameOfLifeImpl(height, width, aliveProbability, randomCellsBornPerTurn, interval);
+        Mode mode = Mode.fromIndex(modeIndex);
+        GameOfLife gol = mode.getGolGenerator()
+                             .create(height, width, aliveProbability, randomCellsBornPerTurn, interval);
         gol.play(new ConsoleDisplay());
+    }
+
+    private static void printMode(Mode mode) {
+        System.out.println(mode.getIndex() + ") " + mode.getDesc());
     }
 }

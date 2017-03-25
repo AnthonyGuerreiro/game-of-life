@@ -1,21 +1,22 @@
-package gol.core;
+package gol.core.rowsplitter;
 
+import gol.core.Board;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestStayAliveCenterCell extends AbstractTest {
+public class TestStayAliveCornerCell extends AbstractRowSplitterTest {
 
     private final static int HEIGHT = 3;
     private final static int WIDTH = 3;
 
-    public TestStayAliveCenterCell() {
+    public TestStayAliveCornerCell() {
         super(HEIGHT, WIDTH);
     }
 
     @Test
     @SuppressWarnings("Duplicates")
-    public void testOverPopulatedCenterCell() {
+    public void testOverPopulatedCenterCell() throws InterruptedException {
         assertEquals(3, gameOfLife.getCellsAlive());
         gameOfLife.step();
 
@@ -38,6 +39,6 @@ public class TestStayAliveCenterCell extends AbstractTest {
     public void initialize(Board board) {
         board.spawn(0, 0);
         board.spawn(0, 1);
-        board.spawn(1, 1);
+        board.spawn(1, 0);
     }
 }
