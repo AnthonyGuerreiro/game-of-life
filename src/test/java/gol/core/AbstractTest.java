@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractTest {
 
-    protected final GameOfLife gameOfLife;
+    protected final GameOfLifeImpl gameOfLife;
     private final int height;
     private final int width;
 
@@ -23,8 +23,8 @@ public abstract class AbstractTest {
 
     protected abstract void initialize(Board board);
 
-    private GameOfLife createGameOfLife(Board board) {
-        return new GameOfLife(board, 0, 0.5f);
+    private GameOfLifeImpl createGameOfLife(Board board) {
+        return new GameOfLifeImpl(board, 0, 0.5f);
     }
 
     public void assertAlive(int i, int j) {

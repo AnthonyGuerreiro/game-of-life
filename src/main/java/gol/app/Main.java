@@ -1,6 +1,7 @@
 package gol.app;
 
 import gol.core.GameOfLife;
+import gol.core.GameOfLifeImpl;
 import gol.display.ConsoleDisplay;
 
 public class Main {
@@ -58,7 +59,7 @@ public class Main {
     private static void start(int height, int width, float aliveProbability, int randomCellsBornPerTurn,
                               float interval) throws InterruptedException {
 
-        GameOfLife gol = new GameOfLife(height, width, aliveProbability, randomCellsBornPerTurn, interval);
+        GameOfLife gol = new GameOfLifeImpl(height, width, aliveProbability, randomCellsBornPerTurn, interval);
         gol.play(new ConsoleDisplay());
     }
 }
