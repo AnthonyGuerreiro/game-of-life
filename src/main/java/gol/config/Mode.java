@@ -4,7 +4,7 @@ public enum Mode {
 
     SIMPLE(1, "Simple game of life", new SimpleGameOfLifeGenerator()),
     ROW_SPLITTER(2, "Row splitter game of life", new RowSplitterGameOfLifeGenerator()),
-    BOARD_DIVIDER(2, "Board divider game of life", new BoardDividerGameOfLifeGenerator());
+    BOARD_DIVIDER(3, "Board divider game of life", new BoardDividerGameOfLifeGenerator());
 
     private final int index;
     private final String desc;

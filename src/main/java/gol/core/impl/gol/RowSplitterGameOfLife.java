@@ -8,9 +8,7 @@ import gol.display.Display;
 import gol.display.NoDisplay;
 import gol.validator.GameOfLifeValidator;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class RowSplitterGameOfLife implements GameOfLife {
 
@@ -83,7 +81,7 @@ public class RowSplitterGameOfLife implements GameOfLife {
 
         for (int i = 0; i < height; i++) {
             int row = i;
-            executor.execute(() -> processRow(row));
+            executor.execute(processRow(row));
         }
 
         latch.await();
@@ -122,13 +120,16 @@ public class RowSplitterGameOfLife implements GameOfLife {
         latch = new CountDownLatch(height);
     }
 
-    private void processRow(int i) {
+    private FutureTask<Void> processRow(int i) {
 
-        for (int j = 0; j < width; j++) {
-            int neighbors = neighborCounter.count(board, i, j);
-            compute(i, j, neighbors);
-        }
-        latch.countDown();
+        Runnable runnable = () -> {
+            for (int j = 0; j < width; j++) {
+                int neighbors = neighborCounter.count(board, i, j);
+                compute(i, j, neighbors);
+            }
+            latch.countDown();
+        };
+        return new FutureTask<>(runnable, null);
     }
 
     private void spawnRandomCells() {

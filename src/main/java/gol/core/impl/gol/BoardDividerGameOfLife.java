@@ -8,10 +8,7 @@ import gol.display.Display;
 import gol.display.NoDisplay;
 import gol.validator.GameOfLifeValidator;
 
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class BoardDividerGameOfLife implements GameOfLife {
 
@@ -102,7 +99,7 @@ public class BoardDividerGameOfLife implements GameOfLife {
         for (int i = 0; i < THREAD_COUNT; i++) {
             int _start = start;
             int _end = end;
-            executor.execute(() -> processRows(_start, _end));
+            executor.execute(processRows(_start, _end));
 
             boolean isLastLine = i != THREAD_COUNT - 1;
             if (isLastLine) {
@@ -142,19 +139,20 @@ public class BoardDividerGameOfLife implements GameOfLife {
         barrier.reset();
     }
 
-    private void processRows(int start, int end) {
+    private FutureTask<Void> processRows(int start, int end) {
 
-        for (int i = start; i < end; i++) {
-            for (int j = 0; j < width; j++) {
-                int neighbors = neighborCounter.count(board, i, j);
-                compute(i, j, neighbors);
+        Callable<Void> callable = () -> {
+            for (int i = start; i < end; i++) {
+                for (int j = 0; j < width; j++) {
+                    int neighbors = neighborCounter.count(board, i, j);
+                    compute(i, j, neighbors);
+                }
             }
-        }
-        try {
             barrier.await();
-        } catch (InterruptedException | BrokenBarrierException e) {
-            throw new RuntimeException(e);
-        }
+            return null;
+        };
+
+        return new FutureTask<>(callable);
     }
 
     private void compute(int i, int j, int neighbors) {
