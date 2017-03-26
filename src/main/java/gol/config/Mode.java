@@ -3,7 +3,8 @@ package gol.config;
 public enum Mode {
 
     SIMPLE(1, "Simple game of life", new SimpleGameOfLifeGenerator()),
-    ROW_EXECUTOR(2, "Row executor game of life", new RowExecutorGameOfLifeGenerator());
+    ROW_EXECUTOR(2, "Row executor game of life", new RowExecutorGameOfLifeGenerator()),
+    BOARD_DIVIDER(2, "Board divider game of life", new BoardDividerGameOfLifeGenerator());
 
     private final int index;
     private final String desc;
